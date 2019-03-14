@@ -11,6 +11,7 @@
     <RepositoryType>Git</RepositoryType>
     <PackageLicenseUrl>https://github.com/dev-mich/AspNetCore.ScopeValidation/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright></Copyright>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
