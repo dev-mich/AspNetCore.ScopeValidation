@@ -32,19 +32,24 @@ namespace AspNetCore.ScopeValidation.Test
                 o.AnonymousRoutes = new List<string> { "/anonymous/route" };
                 o.AuthenticationScheme = "test_scheme";
                 o.ScopeClaimType = "scope";
-                o.ScopeSchemes = new List<Scope>
+                o.ScopeSchemes = new List<ScopeScheme>
                 {
-                    new Scope
+                    new ScopeScheme
                     {
-                        AllowedScopes = new List<string>{"valid_post_scope"},
                         PathTemplate = "/restricted/route",
-                        RequestMethod = HttpMethod.Post
-                    },
-                    new Scope
-                    {
-                        AllowedScopes = new List<string>{"valid_get_scope"},
-                        PathTemplate = "/restricted/route",
-                        RequestMethod = HttpMethod.Get
+                        AllowedScopes = new List<Scope>
+                        {
+                            new Scope
+                            {
+                                RequestMethod = HttpMethod.Post,
+                                AllowedScopes = new List<string>{"valid_post_scope"}
+                            },
+                            new Scope
+                            {
+                                RequestMethod = HttpMethod.Get,
+                                AllowedScopes = new List<string>{"valid_get_scope"}
+                            }
+                        }
                     }
                 };
             }, new ClaimsPrincipal(identity));
@@ -74,7 +79,7 @@ namespace AspNetCore.ScopeValidation.Test
 
 
         [Fact]
-        public async Task TestInvalidResponse()
+        public async Task TestInvalidGet()
         {
             // ACT
             var response = await _client.GetAsync("/restricted/route");

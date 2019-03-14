@@ -24,13 +24,19 @@ namespace AspNetCore.ScopeValidation.Test.AnonymousUser
                 o.AnonymousRoutes = new List<string>{"/anonymous/route"};
                 o.AuthenticationScheme = "test_scheme";
                 o.ScopeClaimType = "scope";
-                o.ScopeSchemes = new List<Scope>
+                o.ScopeSchemes = new List<ScopeScheme>
                 {
-                    new Scope
+                    new ScopeScheme
                     {
-                        AllowedScopes = new List<string>{"valid.scope"},
                         PathTemplate = "/restricted/route",
-                        RequestMethod = HttpMethod.Get
+                        AllowedScopes = new List<Scope>
+                        {
+                            new Scope
+                            {
+                                RequestMethod = HttpMethod.Get,
+                                AllowedScopes = new List<string>{"valid.scope"}
+                            }
+                        }
                     }
                 };
             }, null);

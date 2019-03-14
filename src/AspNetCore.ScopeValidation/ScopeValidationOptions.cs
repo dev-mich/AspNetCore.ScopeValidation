@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 
 namespace AspNetCore.ScopeValidation
@@ -8,13 +6,13 @@ namespace AspNetCore.ScopeValidation
     public class ScopeValidationOptions
     {
         /// <summary>
-        /// default Bearer
+        /// default "Bearer"
         /// </summary>
         public string AuthenticationScheme { get; set; }
 
 
         /// <summary>
-        /// default scope
+        /// default "scope"
         /// </summary>
         public string ScopeClaimType { get; set; }
 
@@ -22,7 +20,7 @@ namespace AspNetCore.ScopeValidation
         /// <summary>
         /// List of scope validation rules
         /// </summary>
-        public List<Scope> ScopeSchemes { get; set; }
+        public List<ScopeScheme> ScopeSchemes { get; set; }
 
 
         /// <summary>
@@ -34,7 +32,7 @@ namespace AspNetCore.ScopeValidation
     }
 
 
-    public class Scope
+    public class ScopeScheme
     {
 
         /// <summary>
@@ -43,6 +41,20 @@ namespace AspNetCore.ScopeValidation
         public string PathTemplate { get; set; }
 
 
+        public List<Scope> AllowedScopes { get; set; }
+
+
+        public ScopeScheme()
+        {
+            PathTemplate = string.Empty;
+        }
+
+    }
+
+
+
+    public class Scope
+    {
         /// <summary>
         /// Associated scope request method
         /// </summary>
@@ -53,12 +65,5 @@ namespace AspNetCore.ScopeValidation
         /// List of valid scopes
         /// </summary>
         public IEnumerable<string> AllowedScopes { get; set; }
-
-
-        public Scope()
-        {
-            PathTemplate = string.Empty;
-        }
-
     }
 }

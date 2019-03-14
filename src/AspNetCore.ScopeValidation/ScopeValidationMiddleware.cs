@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AspNetCore.ScopeValidation.Exceptions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -123,7 +124,14 @@ namespace AspNetCore.ScopeValidation
 
             var grantedScopes = scopeClaims.Select(s => s.Value);
 
-            var allowedScopes = _options.ScopeSchemes.Where(s =>path.StartsWith(s.PathTemplate) && s.RequestMethod.Method.Equals(method)).SelectMany(s => s.AllowedScopes);
+
+            // search for a valid scheme
+            var scopeScheme = _options.ScopeSchemes.FirstOrDefault(s => path.StartsWith(s.PathTemplate));
+
+            if(scopeScheme == null)
+                throw new MissingScopeSchemeException(path);
+
+            var allowedScopes = scopeScheme.AllowedScopes.Where(s =>s.RequestMethod.Method.Equals(method)).SelectMany(s => s.AllowedScopes);
 
             var intersection = allowedScopes.Intersect(grantedScopes);
 
