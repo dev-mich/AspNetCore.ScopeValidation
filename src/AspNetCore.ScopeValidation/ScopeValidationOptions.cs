@@ -31,14 +31,6 @@ namespace AspNetCore.ScopeValidation
         public List<string> AnonymousRoutes { get; set; }
 
 
-        public ScopeValidationOptions()
-        {
-            if (ScopeSchemes == null)
-
-                throw new ArgumentNullException(nameof(ScopeSchemes));
-
-        }
-
     }
 
 
@@ -65,14 +57,6 @@ namespace AspNetCore.ScopeValidation
 
         public Scope()
         {
-            if(AllowedScopes == null)
-
-                    throw new ArgumentNullException(nameof(AllowedScopes));
-
-            if(!AllowedScopes.Any())
-
-                    throw new InvalidOperationException(nameof(AllowedScopes));
-
             PathTemplate = string.Empty;
         }
 

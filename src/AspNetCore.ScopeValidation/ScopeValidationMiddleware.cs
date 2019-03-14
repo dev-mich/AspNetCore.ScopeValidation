@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace AspNetCore.ScopeValidation
 
 
             // ensure that path is not not anonymous
-            if (_options.AnonymousRoutes.Any(r => r.StartsWith(requestPath)))
+            if (_options.AnonymousRoutes.Any(r => requestPath.Value.StartsWith(r)))
             {
                 _logger.LogDebug("Validation skipped cause route allow anonymous users");
 
@@ -81,9 +82,38 @@ namespace AspNetCore.ScopeValidation
 
 
 
+        private void ValidateConfiguration()
+        {
+            if (_options.ScopeSchemes == null)
+
+                throw new ArgumentNullException(nameof(_options.ScopeSchemes));
+
+
+            foreach (var optionsScopeScheme in _options.ScopeSchemes)
+            {
+                if (optionsScopeScheme.AllowedScopes == null)
+
+                    throw new ArgumentNullException(nameof(optionsScopeScheme.AllowedScopes));
+
+                if (!optionsScopeScheme.AllowedScopes.Any())
+
+                    throw new InvalidOperationException(nameof(optionsScopeScheme.AllowedScopes));
+
+            }
+
+        }
+
+
+
+
+
 
         private bool Validate(string path, string method, ClaimsPrincipal principal)
         {
+            // ensure that configuration is valid
+            ValidateConfiguration();
+
+
             var scopeClaims = principal.FindAll(_options.ScopeClaimType);
             _logger.LogInformation("Scopes found on principal: {scopes}", scopeClaims);
 
@@ -112,7 +142,7 @@ namespace AspNetCore.ScopeValidation
         public async Task Forbidden(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
-            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
             await context.Response.WriteAsync($"invalid scopes");
         }
     }

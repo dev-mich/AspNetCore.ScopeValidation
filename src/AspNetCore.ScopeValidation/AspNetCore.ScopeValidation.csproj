@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Authors>Giacomo Michelon</Authors>
+    <Description>Simple authorization middleware for granular scope based authorization</Description>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/dev-mich/AspNetCore.ScopeValidation</RepositoryUrl>
+    <PackageTags>OAuth2 IdentityServer Scope Authorization Middleware ScopeAuthorization</PackageTags>
+    <PackageLicense>https://github.com/dev-mich/AspNetCore.ScopeValidation/blob/master/LICENSE</PackageLicense>
+    <RepositoryType>Git</RepositoryType>
+    <PackageLicenseUrl>https://github.com/dev-mich/AspNetCore.ScopeValidation/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright></Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>
