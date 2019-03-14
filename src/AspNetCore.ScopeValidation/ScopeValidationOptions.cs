@@ -29,6 +29,13 @@ namespace AspNetCore.ScopeValidation
         public List<string> AnonymousRoutes { get; set; }
 
 
+        public ScopeValidationOptions()
+        {
+            AuthenticationScheme = "Bearer";
+            ScopeClaimType = "scope";
+        }
+
+
     }
 
 
