@@ -8,8 +8,8 @@
     <RepositoryUrl>https://github.com/dev-mich/AspNetCore.ScopeValidation</RepositoryUrl>
     <PackageTags>OAuth2 IdentityServer Scope Authorization Middleware ScopeAuthorization</PackageTags>
     <PackageLicense>https://github.com/dev-mich/AspNetCore.ScopeValidation/blob/master/LICENSE</PackageLicense>
+	<PackageLicenseexpression>MIT</PackageLicenseexpression>
     <RepositoryType>Git</RepositoryType>
-    <PackageLicenseUrl>https://github.com/dev-mich/AspNetCore.ScopeValidation/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright></Copyright>
     <Version>1.0.2</Version>
   </PropertyGroup>
