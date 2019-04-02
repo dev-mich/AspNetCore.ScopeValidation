@@ -13,4 +13,4 @@ deploy:
   script: dotnet nuget push src/AspNetCore.ScopeValidation/bin/Release/AspNetCore.ScopeValidation.*.nupkg --api-key $NUGET_API_KEY
   on:
     tags: true
-    condition: branch = master
+    branch: master
