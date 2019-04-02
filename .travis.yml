@@ -1,8 +1,8 @@
 language: csharp
 mono: none
 os: linux
-dist: trusty
-dotnet: 2.2.105
+dist: bionic
+dotnet: 2.2
 script:
 - dotnet build -c Release
 - dotnet test --filter AspNetCore.ScopeValidation.Test
