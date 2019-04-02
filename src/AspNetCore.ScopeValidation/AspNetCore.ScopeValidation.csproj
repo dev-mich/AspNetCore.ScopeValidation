@@ -11,7 +11,7 @@
 	<PackageLicenseexpression>MIT</PackageLicenseexpression>
     <RepositoryType>Git</RepositoryType>
     <Copyright></Copyright>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
