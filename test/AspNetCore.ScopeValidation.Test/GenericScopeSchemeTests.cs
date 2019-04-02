@@ -9,15 +9,18 @@ using Xunit;
 
 namespace AspNetCore.ScopeValidation.Test
 {
-    public class AuthenticatedUserTests
+
+    public class GenericScopeSchemeTests
     {
+
+
         private const string ScopeClaimType = "scope";
 
 
         private readonly HttpClient _client;
 
 
-        public AuthenticatedUserTests()
+        public GenericScopeSchemeTests()
         {
 
             var identity = new ClaimsIdentity(new List<Claim>
@@ -36,7 +39,6 @@ namespace AspNetCore.ScopeValidation.Test
                 {
                     new ScopeScheme
                     {
-                        PathTemplate = "/restricted/route",
                         AllowedScopes = new List<Scope>
                         {
                             new Scope
@@ -64,17 +66,23 @@ namespace AspNetCore.ScopeValidation.Test
 
 
 
+
+
         [Fact]
         public async Task TestValidPost()
         {
             // ACT
-            var response = await _client.PostAsync("/restricted/route", new StringContent("response body"));
+            var response1 = await _client.PostAsync("/restricted/route", new StringContent("response body"));
+            var response2 = await _client.PostAsync("/restricted/route2", new StringContent("response body"));
 
 
             // ASSERT
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response1.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response2.StatusCode);
 
         }
+
+
 
 
 
@@ -82,15 +90,21 @@ namespace AspNetCore.ScopeValidation.Test
         public async Task TestInvalidGet()
         {
             // ACT
-            var response = await _client.GetAsync("/restricted/route");
+            var response1 = await _client.GetAsync("/restricted/route");
+            var response2 = await _client.GetAsync("/restricted/route");
 
-            var responseContent = await response.Content.ReadAsStringAsync();
+
+            var responseContent1 = await response1.Content.ReadAsStringAsync();
+            var responseContent2 = await response2.Content.ReadAsStringAsync();
 
 
 
             // ASSERT
-            Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
-            Assert.Equal("invalid scopes", responseContent);
+            Assert.Equal(HttpStatusCode.Forbidden, response1.StatusCode);
+            Assert.Equal(HttpStatusCode.Forbidden, response2.StatusCode);
+
+            Assert.Equal("invalid scopes", responseContent1);
+            Assert.Equal("invalid scopes", responseContent2);
 
         }
 

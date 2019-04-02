@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNetCore.ScopeValidation.Extensions;
-using AspNetCore.ScopeValidation.Test.Infrastructure;
+using AspNetCore.ScopeValidation.Test.TestAuthentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 

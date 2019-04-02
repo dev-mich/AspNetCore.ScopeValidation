@@ -128,9 +128,23 @@ namespace AspNetCore.ScopeValidation
             // search for a valid scheme
             var scopeScheme = _options.ScopeSchemes.FirstOrDefault(s => path.StartsWith(s.PathTemplate, StringComparison.InvariantCultureIgnoreCase));
 
-            if(scopeScheme == null)
-                throw new MissingScopeSchemeException(path);
+            if (scopeScheme == null)
+            {
 
+                // a scope scheme for the given request was not found, check if a generic scheme exist (empty PathTemplate)
+                scopeScheme = _options.ScopeSchemes.FirstOrDefault(s => string.IsNullOrEmpty(s.PathTemplate));
+
+                if(scopeScheme == null)
+                    throw new MissingScopeSchemeException(path);
+
+            }
+
+            // check if wildcard scope is granted
+            if (grantedScopes.Any(s => s == scopeScheme.WildcardScope))
+                return true;
+
+
+            // wildcard scope is not granted, search for specific scope
             var allowedScopes = scopeScheme.AllowedScopes.Where(s =>s.RequestMethod.Method.Equals(method)).SelectMany(s => s.AllowedScopes);
 
             var intersection = allowedScopes.Intersect(grantedScopes);

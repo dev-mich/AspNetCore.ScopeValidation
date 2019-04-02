@@ -43,9 +43,15 @@ namespace AspNetCore.ScopeValidation
     {
 
         /// <summary>
-        /// If set different paths can have different required scopes, if not set if for all paths that match request method and is not anonymous
+        /// If set different paths can have different required scopes, if not set is for all paths that match request method and is not anonymous
         /// </summary>
         public string PathTemplate { get; set; }
+
+
+        /// <summary>
+        /// Scopes that allow request to any method of this scope scheme
+        /// </summary>
+        public string WildcardScope { get; set; }
 
 
         public List<Scope> AllowedScopes { get; set; }

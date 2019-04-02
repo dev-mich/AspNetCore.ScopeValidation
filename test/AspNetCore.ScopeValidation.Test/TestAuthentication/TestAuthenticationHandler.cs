@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace AspNetCore.ScopeValidation.Test.Infrastructure
+namespace AspNetCore.ScopeValidation.Test.TestAuthentication
 {
     public class TestAuthenticationHandler: AuthenticationHandler<TestAuthenticationOptions>
     {
