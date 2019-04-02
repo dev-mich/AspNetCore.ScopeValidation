@@ -6,3 +6,11 @@ dotnet: 2.2
 script:
 - dotnet build -c Release
 - dotnet test --filter AspNetCore.ScopeValidation.Test
+- dotnet pack -c Release
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: dotnet nuget push src/AspNetCore.ScopeValidation/bin/Release/AspNetCore.ScopeValidation.*.nupkg --api-key $NUGET_API_KEY
+  on:
+    tags: true
+    condition: $TRAVIS_TAG =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$
