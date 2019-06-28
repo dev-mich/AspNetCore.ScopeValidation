@@ -37,7 +37,7 @@ namespace AspNetCore.ScopeValidation
 
 
             // ensure that path is not not anonymous
-            if (_options.AnonymousRoutes.Any(r => requestPath.Value.StartsWith(r, StringComparison.InvariantCultureIgnoreCase)))
+            if (_options.AnonymousRoutes != null && _options.AnonymousRoutes.Any(r => requestPath.Value.StartsWith(r, StringComparison.InvariantCultureIgnoreCase)))
             {
                 _logger.LogDebug("Validation skipped cause route allow anonymous users");
 
